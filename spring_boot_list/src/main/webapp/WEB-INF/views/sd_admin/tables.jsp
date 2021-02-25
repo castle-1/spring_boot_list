@@ -419,9 +419,10 @@
 					<tr>					
 						<td colspan="6">
 						<div class="container">
+							<button type="submit" class="btn btn-primary"><a href="writeView">글작성</a></button>
  
-  <button type="submit" class="btn btn-primary btn-block"><a href="writeView">글작성</a></button>
-  </div>													
+  
+  						</div>													
 						</td>
 					</tr>
                 </table>
