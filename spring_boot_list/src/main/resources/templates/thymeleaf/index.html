@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Hello world!</h1>
+	<p th:object="${board}"></p>
+	<p th:text="${board.nName}"></p>
+	<p th:text="*{bContent}"></p> <!-- 선택자는 부모 자식관계에서만 사용가능 -->
+	---------------------------------------------------------------
+	<div th:object="${board}">
+		<p th:text="${board.nName}"></p>
+		<p th:text="*{bContent}"></p> <!-- p태그의 부모는 div -->
+	</div>
+	---------------------------------------------------------------
+	
+	<h1 th:text = #{content.id}></h1>
+	<h1 th:text = #{content.name}></h1>
+	<!-- <h1 th:text ="${#temparals.format(localDateTime,'yyyy-mm-dd hh:mm')}"></h1>  -->
+
+</body>
+</html>
