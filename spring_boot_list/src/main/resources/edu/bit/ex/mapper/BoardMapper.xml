@@ -27,13 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		
 	</select> 
 	
-		<select id = "getBoard" resultType = "edu.bit.ex.vo.BoardVO">
+	<select id = "getBoard" resultType = "edu.bit.ex.vo.BoardVO">
 	<![CDATA[ 
 			select * from mvc_board where bId=#{getbId} 
 		]]> 
 	</select> 
-	
-	
 	
 	<select id = "delete" resultType = "edu.bit.ex.vo.BoardVO">
 	<![CDATA[ 
