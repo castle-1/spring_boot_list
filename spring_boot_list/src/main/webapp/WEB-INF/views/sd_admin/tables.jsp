@@ -14,8 +14,13 @@
 	<!-- 페이징을 지정할 태그에 class에 pagination을 넣으면 자동으로 페이징이 된다.-->
 	<!-- 페이징의 크기를 제어할 수 있는데 pagination-lg를 추가하면 페이징 크기가 커지고, pagination-sm를 넣으면 작아진다. -->
 	<!-- 큰 페이징 class="pagination pagination-lg", 보통 페이징 class="pagination", 작은 페이징 class="pagination pagination-sm" -->
-
-
+	
+	<!-- 버튼 적용  -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -399,18 +404,7 @@
                       <th>삭제</th>
                     </tr>
                   </thead>
-                  
-                  <tfoot>
-                    <tr>
-                      <th>번호</th>
-                      <th>이름</th>
-                      <th>제목</th>
-                      <th>날짜</th>
-                      <th>조회수</th>
-                      <th>삭제</th>
-                    </tr>
-                  </tfoot>
-                  
+                 
 		                <c:forEach items="${list}" var="dto">
 					<tr>
 						<td>${dto.bId}</td>
@@ -422,8 +416,13 @@
 						<td ><a class="delete" href="${pageContext.request.contextPath}/restful/board/${dto.bId}">삭제</a></td>
 					</tr>
 						</c:forEach>
-					<tr>
-					<td colspan="6"><a href="writeView">글작성</a></td>
+					<tr>					
+						<td colspan="6">
+						<div class="container">
+ 
+  <button type="button" class="btn btn-primary btn-block"><a href="writeView">글작성</a></button>
+  </div>													
+						</td>
 					</tr>
                 </table>
 				    <!--페이징 처리부분  -->
