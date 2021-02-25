@@ -60,6 +60,8 @@
   <!-- Custom styles for this page -->
   <link href="/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+
+
 </head>
 
 <body id="page-top">
@@ -426,7 +428,8 @@
                 </table>
 				    <!--페이징 처리부분  -->
 					
-					<ul class ="pagination">
+				
+					<ul class ="pagination justify-content-center" >
 					<!-- li태그의 클래스에 disabled를 넣으면 마우스를 위에 올렸을 때 클릭 금지 마크가 나오고 클릭도 되지 않는다.-->
 					<!-- disabled의 의미는 앞의 페이지가 존재하지 않다는 뜻이다. -->
 				
@@ -450,6 +453,7 @@
 					      </c:if>
 					    </li>
 					</ul>
+				
               </div>
             </div>
           </div>
