@@ -48,7 +48,7 @@ public class Controller {
 	public ModelAndView name(ModelAndView mav,Criteria cri) {
 		log.debug("list()....");
 		log.info("list controller");
-		mav.setViewName("list");
+		mav.setViewName("sd_admin/tables");
 		mav.addObject("list", service.getlist(cri));
 		
 		int total = service.getTotal(cri);
