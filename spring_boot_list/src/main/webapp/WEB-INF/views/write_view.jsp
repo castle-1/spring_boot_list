@@ -3,8 +3,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<!-- table 부트스트랩 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Home</title>
+	
+	<!-- 버튼 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
@@ -51,13 +62,21 @@
 		
 	   }); // end ready()
 	
-	</script>
-	
-	
+	</script>	
 </head>
 <body>
-<table width="500" cellpadding="0" cellspacing="0" border="1">
-		<form id="write" action="${pageContext.request.contextPath}/restful/write" method="post">
+	<div class="container">
+	  <h2>글작성</h2>
+	  <br>	  
+	  <table class="table">
+	  	<form id="write" action="${pageContext.request.contextPath}/restful/write" method="post">
+	    <thead class="thead-dark">
+	      <tr>
+	        <th>목록</th>
+	        <th>내용</th>	       
+	      </tr>
+	    </thead>
+	    <tbody>	      
 			<tr>
 				<td> 이름 </td>
 				<td> <input type="text" id="nName" size = "50"> </td>
@@ -71,10 +90,21 @@
 				<td> <textarea id="bContent" rows="10" ></textarea> </td>
 			</tr>
 			<tr >
-				<td colspan="2"> <input type="submit" value="입력"> &nbsp;&nbsp; <a href="${pageContext.request.contextPath}/restful/list">목록보기</a></td>
+				<td colspan="2">
+				<div class="container">
+					<button type="submit" class="btn btn-dark">작성</button>
+					<button type="reset" class="btn btn-dark">리셋</button>
+					<button type="" class="btn btn-dark">
+						<a href="${pageContext.request.contextPath}/restful/list">목록</a>
+					</button>
+					
+				</div>
+				</td>
 			</tr>
-		</form>
-	</table>
-	
+			    
+	    </tbody>
+	    </form>
+	  </table>	 
+	</div>	
 </body>
 </html>
