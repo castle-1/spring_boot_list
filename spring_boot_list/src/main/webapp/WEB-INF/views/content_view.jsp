@@ -63,6 +63,13 @@
 	   }); // end ready()
 	
 	</script>
+	
+	<style type="text/css">
+		#a{
+			color :#ffffff;
+			text-decoration: none;
+		}
+	</style>
 
 </head>
 <body>
@@ -107,10 +114,10 @@
 		            		<button type="reset" class="btn btn-dark">리셋</button>
 		            		
 		            		<button type="submit" class="btn btn-dark">
-		            			<a href="${pageContext.request.contextPath}/restful/list">목록보기</a>
+		            			<a id="a" href="${pageContext.request.contextPath}/restful/list">목록보기</a>
 		            		</button>
 		            		<button type="submit" class="btn btn-dark">
-		            			<a href="${pageContext.request.contextPath}/restful/relpyView/${content_view.bId}">댓글</a>
+		            			<a id="a" href="${pageContext.request.contextPath}/restful/relpyView/${content_view.bId}">댓글</a>
 		            		</button>		            		
 		            	</div> 		            	  
 		            </td>

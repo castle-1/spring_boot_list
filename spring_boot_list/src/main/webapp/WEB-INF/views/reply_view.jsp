@@ -70,6 +70,12 @@
 	   }); // end ready()
 	
 	</script>
+	<style type="text/css">
+		#a{
+			color :#ffffff;
+			text-decoration: none;
+		}
+	</style>
 
 
 </head>
@@ -119,7 +125,7 @@
 		            		<button type="reset" class="btn btn-dark">리셋</button>
 		            		
 		            		<button type="submit" class="btn btn-dark">
-		            			<a href="${pageContext.request.contextPath}/restful/list">목록보기</a>
+		            			<a id="a" href="${pageContext.request.contextPath}/restful/list">목록보기</a>
 		            		</button>		            				            		
 		            	</div> 		            	  
 		            </td>

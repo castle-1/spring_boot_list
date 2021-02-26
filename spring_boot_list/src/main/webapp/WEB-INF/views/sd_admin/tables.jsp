@@ -64,7 +64,15 @@
 
   <!-- Custom styles for this page -->
   <link href="/resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+	
+	
+	<style type="text/css">
+		#a{
+			color : blue;
+			text-decoration: none;
+		}
+	
+	</style>
 
 
 </head>
@@ -419,7 +427,7 @@
 					<tr>					
 						<td colspan="6">
 						<div class="container">
-							<button type="submit" class="btn btn-primary"><a href="writeView">글작성</a></button>
+							<button type="submit" class="btn"><a id="a" href="writeView">글작성</a></button>
  
   
   						</div>													
@@ -433,12 +441,12 @@
 					<!-- li태그의 클래스에 disabled를 넣으면 마우스를 위에 올렸을 때 클릭 금지 마크가 나오고 클릭도 되지 않는다.-->
 					<!-- disabled의 의미는 앞의 페이지가 존재하지 않다는 뜻이다. -->
 				
-						<li class="disabled">
+						<li>
 						 <c:if test="${pageMaker.prev}"> <!--pageMaker.prev가 참이면 실행  -->
 					         <a href="${pageMaker.makeQuery(pageMaker.startPage - 1) }">prev</a>
 					      </c:if>
 						</li>
-						<li class= "active">
+						<li>
 						<!-- li태그의 클래스에 active를 넣으면 색이 반전되고 클릭도 되지 않는다. -->
 						<!-- active의 의미는 현재 페이지의 의미이다. -->
 				
