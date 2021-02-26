@@ -1,5 +1,7 @@
 package edu.bit.ex;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,7 @@ import pagingVO.PageVO;
 @RestController
 @RequestMapping("/restful/*")
 public class Controller {
+	
 	
 	@Autowired
 	private BoardService service;

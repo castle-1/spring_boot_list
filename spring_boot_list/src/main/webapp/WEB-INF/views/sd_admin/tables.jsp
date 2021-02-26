@@ -452,7 +452,7 @@
 				
 					      <c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
 					         <c:out value="${pageMaker.cri.pageNum == idx?'':''}" />
-					         <a  href="${pageMaker.makeQuery(idx)}">${idx}</a> <!--시작부터 끝까지 번호출력  -->
+					         <a href="${pageMaker.makeQuery(idx)}">${idx}</a> <!--시작부터 끝까지 번호출력  -->
 					      </c:forEach>
 					    </li>
 					    <li>
