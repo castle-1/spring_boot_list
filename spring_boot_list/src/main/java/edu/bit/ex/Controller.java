@@ -1,11 +1,8 @@
 package edu.bit.ex;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,14 +32,23 @@ public class Controller {
 	
 	
 	@GetMapping("/")
-	public String home(Model model) {
-		BoardVO boardvo = new BoardVO();
-		boardvo.setbContent("contents");
-		boardvo.setbTitle("title");
-		boardvo.setnName("홍길동");
+	public ModelAndView home(ModelAndView mav) {
+		mav.setViewName("home");
+		return mav;
+	}
+	
+	@GetMapping("/loginForm")
+	public ModelAndView loginForm(ModelAndView mav) {
+		log.info("welcome login form!");
+		mav.setViewName("loginForm2");
+		return mav;
 		
-		model.addAttribute("board", boardvo);
-		return "index";
+	}
+	
+	@GetMapping("/login")
+	public ModelAndView login(ModelAndView mav) {
+		mav.setViewName("home");
+		return mav;
 	}
 
 	
