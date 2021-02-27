@@ -34,21 +34,18 @@ public class Controller {
 	
 	@GetMapping("/")
 	public ModelAndView home(ModelAndView mav) {
-		log.info("홈 index");
 		mav.setViewName("home");
 		return mav;
 	}
 	
 	@GetMapping("/loginForm")
 	public ModelAndView loginForm(ModelAndView mav) {
-		log.info("로그인 폼");
 		mav.setViewName("loginForm");
 		return mav;
 	}
 	
 	@PostMapping("/login")
 	public ModelAndView login(ModelAndView mav) {
-		log.info("로그인 성공!");
 		mav.setViewName("home");
 		return mav;
 		
