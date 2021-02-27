@@ -15,29 +15,29 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class MemberUser extends User {
+public class UserPrincipal extends User {
 	
-	   private MemberVO member; //view단에서 getMember 호출
+	   private UserVO user; //view단에서 getMember 호출
 	   
 	   //기본적으로 부모의 생성자를 호출해야만 정상적으로 작동
 
-	   public MemberUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	   public UserPrincipal(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 	      super(username, password, authorities);
 	   }
 	   
-	   public MemberUser(MemberVO memberVO) {
+	   public UserPrincipal(UserVO user) {
 	            
-	      super(memberVO.getUsername(), memberVO.getPassword(),getAuth(memberVO));
+	      super(user.getUsername(), user.getPassword(),getAuth(user));
 
-	      this.member = memberVO;
+	      this.user = user;
 	   }
 	   
 	   //유저가 갖고 있는 권한 목록
-	   public static Collection<? extends GrantedAuthority> getAuth(MemberVO memberVO) { 
+	   public static Collection<? extends GrantedAuthority> getAuth(UserVO userVO) { 
 
 	      List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 	      
-	      for (AuthVO auth: memberVO.getAuthList()) {
+	      for (AuthVO auth: userVO.getAuthList()) {
 	         authorities.add(new SimpleGrantedAuthority(auth.getAuthority()));
 	      }
 	      

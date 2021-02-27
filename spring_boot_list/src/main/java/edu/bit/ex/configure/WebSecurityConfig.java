@@ -1,5 +1,6 @@
 package edu.bit.ex.configure;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,21 +12,22 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
-import edu.bit.ex.security.MemberDetailsService;
+import edu.bit.ex.service.UserService;
 
+
+@MapperScan(value = "edu.bit.ex.mapper")
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
+	
 	@Autowired
-	private MemberDetailsService service;
+	private UserService service;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/restful/", "/restful/loginForm").permitAll()
-			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-			.antMatchers("/**").access("hasAnyRole('ROLE_USER, ROLE_ADMIN')")
+			.antMatchers("/restful/admin").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().authenticated()
 		.and()
 			.formLogin().loginPage("/restful/loginForm")
@@ -43,9 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	}
 	
-	   @Autowired
-	   public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-	     auth.userDetailsService(service).passwordEncoder(passwordEncoder());
-	   }//UserService를 사용자 인증에 사용하기 위해 userDetailsService() 메소드로 보안 설정
-
+	
+	  @Autowired 
+	  public void configureGlobal(AuthenticationManagerBuilder auth)throws Exception {
+		  auth.userDetailsService(service).passwordEncoder(passwordEncoder());
+	  }//UserService를 사용자 인증에 사용하기 위해 userDetailsService() 메소드로 보안 설정
+	 
 }

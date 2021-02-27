@@ -19,88 +19,86 @@ import lombok.extern.slf4j.Slf4j;
 import pagingVO.Criteria;
 import pagingVO.PageVO;
 
-
-@Slf4j //logging
+@Slf4j // logging
 @AllArgsConstructor
 @RestController
 @RequestMapping("/restful/*")
 public class Controller {
-	
-	
+
 	@Autowired
 	private BoardService service;
-	
-	
+
 	@GetMapping("/")
 	public ModelAndView home(ModelAndView mav) {
+		log.info("index");
 		mav.setViewName("home");
 		return mav;
 	}
-	
+
 	@GetMapping("/loginForm")
 	public ModelAndView loginForm(ModelAndView mav) {
 		log.info("welcome login form!");
 		mav.setViewName("loginForm2");
 		return mav;
-		
+
 	}
-	
-	@GetMapping("/login")
+
+	@PostMapping("/login")
 	public ModelAndView login(ModelAndView mav) {
+		log.info("login success");
 		mav.setViewName("home");
 		return mav;
 	}
 
-	
-	//리스트
+	// 리스트
 	@GetMapping("/list")
-	public ModelAndView name(ModelAndView mav,Criteria cri) {
+	public ModelAndView name(ModelAndView mav, Criteria cri) {
 		log.debug("list()....");
 		log.info("list controller");
 		mav.setViewName("sd_admin/tables");
 		mav.addObject("list", service.getlist(cri));
-		
+
 		int total = service.getTotal(cri);
 		log.info("total");
-		mav.addObject("pageMaker", new PageVO(cri,total));
+		mav.addObject("pageMaker", new PageVO(cri, total));
 		return mav;
 	}
-	
-	//contenteView
+
+	// contenteView
 	@GetMapping("/board/{bId}")
 	public ModelAndView contentView(ModelAndView mav, BoardVO vo) {
 		mav.setViewName("content_view");
 		mav.addObject("content_view", service.getBoard(vo.getbId()));
 		return mav;
 	}
-	
-	//delete
+
+	// delete
 	@DeleteMapping("/board/{bId}")
 	public ResponseEntity<String> delete(BoardVO vo) {
-		
+
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.delete(vo.getbId());
-			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
+
 		return entity;
 	}
-	
-	//수정
+
+	// 수정
 	@PutMapping("/modify/{bId}")
 	public ResponseEntity<String> modify(@RequestBody BoardVO vo) {
-		
+
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.modify(vo);
-			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-			
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -108,60 +106,57 @@ public class Controller {
 		}
 		return entity;
 	}
-	
-	//replyView
+
+	// replyView
 	@GetMapping("/relpyView/{bId}")
 	public ModelAndView replyView(ModelAndView mav, BoardVO vo) {
 		mav.setViewName("reply_view");
 		mav.addObject("reply_view", service.replyView(vo.getbId()));
-		
+
 		return mav;
-		
+
 	}
-	
-	//reply
+
+	// reply
 	@PostMapping("/reply/{bId}")
 	public ResponseEntity<String> reply(@RequestBody BoardVO vo) {
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.reply(vo);
-			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
-	
-	//writeView
+
+	// writeView
 	@GetMapping("/writeView")
 	public ModelAndView writeView(ModelAndView mav) {
-		 mav.setViewName("write_view");
-		
+		mav.setViewName("write_view");
+
 		return mav;
-		
+
 	}
-	
-	//write
+
+	// write
 	@PostMapping("/write")
 	public ResponseEntity<String> write(@RequestBody BoardVO vo) {
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.write(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
-		
+
 	}
-	
-	
-	
-	
+
 }
