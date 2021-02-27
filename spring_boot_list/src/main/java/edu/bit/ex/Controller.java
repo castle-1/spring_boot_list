@@ -1,5 +1,7 @@
 package edu.bit.ex;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,22 +35,14 @@ public class Controller {
 	
 	
 	@GetMapping("/")
-	public ModelAndView home(ModelAndView mav) {
-		mav.setViewName("home");
-		return mav;
-	}
-	
-	@GetMapping("/loginForm")
-	public ModelAndView loginForm(ModelAndView mav) {
-		mav.setViewName("loginForm");
-		return mav;
-	}
-	
-	@PostMapping("/login")
-	public ModelAndView login(ModelAndView mav) {
-		mav.setViewName("home");
-		return mav;
+	public String home(Model model) {
+		BoardVO boardvo = new BoardVO();
+		boardvo.setbContent("contents");
+		boardvo.setbTitle("title");
+		boardvo.setnName("홍길동");
 		
+		model.addAttribute("board", boardvo);
+		return "index";
 	}
 
 	
