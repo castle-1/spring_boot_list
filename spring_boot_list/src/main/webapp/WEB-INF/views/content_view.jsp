@@ -3,6 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<!-- csrf 관련이슈 해결방법 : jsp에 meta 태그추가(csrf값 얻기위해) -->
+<!-- js에서 csrf 토큰, 헤더등록 -->
+<meta name="_csrf" content="${_csrf.token}"> 
+<meta name="_csrf_header" content="${_csrf.headerName}">
+
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 
 <!-- table -->
@@ -20,6 +25,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
 	<script type="text/javascript">
+	
+	/*js에서 csrf토큰, 헤더 등록  */
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+	    xhr.setRequestHeader(header, token);
+	});
 	
 	 $(document).ready(function(){
 
@@ -47,7 +59,7 @@
 						console.log(result);
 						if(result == "SUCCESS"){
 							console.log("success");
-							$(location).attr('href',"${pageContext.request.contextPath}/restful/list");
+							$(location).attr('href',"${pageContext.request.contextPath}/admin/list");
 							//window.location.replace("${pageContext.request.contextPath}/restful/board");
 						}
 					},
@@ -85,7 +97,7 @@
 	    </thead>
 	    
 	    <tbody>
-	      <form id="modify" action="${pageContext.request.contextPath}/restful/modify/${content_view.bId}", method="post">
+	      <form id="modify" action="${pageContext.request.contextPath}/admin/modify/${content_view.bId}", method="post">
 		         <input type="hidden" id="bId" value="${content_view.bId}">
 		         <tr>
 		            <td> 번호 </td>
@@ -114,10 +126,10 @@
 		            		<button type="reset" class="btn btn-dark">리셋</button>
 		            		
 		            		<button type="submit" class="btn btn-dark">
-		            			<a id="a" href="${pageContext.request.contextPath}/restful/list">목록보기</a>
+		            			<a id="a" href="${pageContext.request.contextPath}/admin/list">목록보기</a>
 		            		</button>
 		            		<button type="submit" class="btn btn-dark">
-		            			<a id="a" href="${pageContext.request.contextPath}/restful/relpyView/${content_view.bId}">댓글</a>
+		            			<a id="a" href="${pageContext.request.contextPath}/admin/relpyView/${content_view.bId}">댓글</a>
 		            		</button>		            		
 		            	</div> 		            	  
 		            </td>

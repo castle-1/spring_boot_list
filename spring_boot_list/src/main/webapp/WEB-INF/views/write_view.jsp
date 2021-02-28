@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+<%-- <sec:csrfMetaTags/> --%>
+<!-- 헤어 안에 추가  -->
+<!-- csrf 관련이슈 해결방법 : jsp에 meta 태그추가(csrf값 얻기위해) -->
+<!-- js에서 csrf 토큰, 헤더등록 -->
+<meta name="_csrf" content="${_csrf.token}"> 
+<meta name="_csrf_header" content="${_csrf.headerName}">
+
+
+
 	<!-- table 부트스트랩 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -21,10 +31,24 @@
 	
 	<script type="text/javascript">
 	
+	/*js에서 csrf토큰, 헤더 등록  */
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options) {
+	    xhr.setRequestHeader(header, token);
+	});
+
+	
+	
 	 $(document).ready(function(){
+		 var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			
 
 			$('#write').submit(function(event) {
 				event.preventDefault();
+			
+				
 				
 				var nName = $("#nName").val();
 				var bTitle = $("#bTitle").val();
@@ -47,7 +71,7 @@
 						console.log(result);
 						if(result == "SUCCESS"){
 							console.log("success");
-							$(location).attr('href',"${pageContext.request.contextPath}/restful/list");
+							$(location).attr('href',"${pageContext.request.contextPath}/admin/list");
 							
 						}
 					},
@@ -78,7 +102,7 @@
 	  <h2>글작성</h2>
 	  <br>	  
 	  <table class="table">
-	  	<form id="write" action="${pageContext.request.contextPath}/restful/write" method="post">
+	  	<form id="write" action="${pageContext.request.contextPath}/admin/write" method="post">
 	    <thead class="thead-dark">
 	      <tr>
 	        <th>목록</th>
@@ -103,8 +127,8 @@
 				<div class="container">
 					<button type="submit" class="btn btn-dark">작성</button>
 					<button type="reset" class="btn btn-dark">리셋</button>
-					<button type="" class="btn btn-dark">
-						<a id="a" href="${pageContext.request.contextPath}/restful/list">목록</a>
+					<button type="submit" class="btn btn-dark">
+						<a id="a" href="${pageContext.request.contextPath}/admin/list">목록</a>
 					</button>
 					
 				</div>

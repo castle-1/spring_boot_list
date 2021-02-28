@@ -22,79 +22,87 @@ import lombok.extern.slf4j.Slf4j;
 import pagingVO.Criteria;
 import pagingVO.PageVO;
 
-
-@Slf4j //logging
+@Slf4j // logging
 @AllArgsConstructor
 @RestController
-@RequestMapping("/restful/*")
 public class Controller {
-	
-	
+
 	@Autowired
 	private BoardService service;
-	
-	
+
 	@GetMapping("/")
-	public String home(Model model) {
-		BoardVO boardvo = new BoardVO();
-		boardvo.setbContent("contents");
-		boardvo.setbTitle("title");
-		boardvo.setnName("홍길동");
-		
-		model.addAttribute("board", boardvo);
-		return "index";
+	public ModelAndView home(ModelAndView mav) {
+		mav.setViewName("sd_admin/index");
+		return mav;
 	}
 
+	@GetMapping("/loginForm")
+	public ModelAndView loginForm(ModelAndView mav) {
+		mav.setViewName("sd_admin/login");
+		return mav;
+	}
+
+	@RequestMapping("/successLogin")
+	public ModelAndView sLogin(ModelAndView mav) {
+		mav.setViewName("sd_admin/index");
+		return mav;
+	}
 	
-	//리스트
-	@GetMapping("/list")
-	public ModelAndView name(ModelAndView mav,Criteria cri) {
+	@RequestMapping("/logout")
+	public ModelAndView logout(ModelAndView mav) {
+		mav.setViewName("sd_admin/index");
+		return mav;
+	}
+
+	// 리스트
+	@GetMapping("/admin/list")
+	public ModelAndView name(ModelAndView mav, Criteria cri) {
 		log.debug("list()....");
 		log.info("list controller");
 		mav.setViewName("sd_admin/tables");
 		mav.addObject("list", service.getlist(cri));
-		
+
 		int total = service.getTotal(cri);
 		log.info("total");
-		mav.addObject("pageMaker", new PageVO(cri,total));
+		mav.addObject("pageMaker", new PageVO(cri, total));
 		return mav;
 	}
-	
-	//contenteView
-	@GetMapping("/board/{bId}")
+
+	// contenteView
+	@GetMapping("/admin/board/{bId}")
 	public ModelAndView contentView(ModelAndView mav, BoardVO vo) {
 		mav.setViewName("content_view");
 		mav.addObject("content_view", service.getBoard(vo.getbId()));
 		return mav;
 	}
-	
-	//delete
-	@DeleteMapping("/board/{bId}")
+
+	// delete
+	@DeleteMapping("/admin/board/{bId}")
 	public ResponseEntity<String> delete(BoardVO vo) {
-		
+
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.delete(vo.getbId());
-			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
+
 		return entity;
 	}
-	
-	//수정
-	@PutMapping("/modify/{bId}")
+
+	// 수정
+	@PutMapping("/admin/modify/{bId}")
 	public ResponseEntity<String> modify(@RequestBody BoardVO vo) {
-		
+
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.modify(vo);
-			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
-			
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -102,60 +110,57 @@ public class Controller {
 		}
 		return entity;
 	}
-	
-	//replyView
-	@GetMapping("/relpyView/{bId}")
+
+	// replyView
+	@GetMapping("/admin/relpyView/{bId}")
 	public ModelAndView replyView(ModelAndView mav, BoardVO vo) {
 		mav.setViewName("reply_view");
 		mav.addObject("reply_view", service.replyView(vo.getbId()));
-		
+
 		return mav;
-		
+
 	}
-	
-	//reply
-	@PostMapping("/reply/{bId}")
+
+	// reply
+	@PostMapping("/admin/reply/{bId}")
 	public ResponseEntity<String> reply(@RequestBody BoardVO vo) {
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.reply(vo);
-			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
-	
-	//writeView
-	@GetMapping("/writeView")
+
+	// writeView
+	@GetMapping("/admin/writeView")
 	public ModelAndView writeView(ModelAndView mav) {
-		 mav.setViewName("write_view");
-		
+		mav.setViewName("write_view");
+
 		return mav;
-		
+
 	}
-	
-	//write
-	@PostMapping("/write")
+
+	// write
+	@PostMapping("/admin/write")
 	public ResponseEntity<String> write(@RequestBody BoardVO vo) {
 		ResponseEntity<String> entity = null;
-		
+
 		try {
 			service.write(vo);
 			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
-		
+
 	}
-	
-	
-	
-	
+
 }

@@ -3,6 +3,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
+<!-- 헤어 안에 추가  -->
+<!-- csrf 관련이슈 해결방법 : jsp에 meta 태그추가(csrf값 얻기위해) -->
+<!-- js에서 csrf 토큰, 헤더등록 -->
+<meta name="_csrf" content="${_csrf.token}"> 
+<meta name="_csrf_header" content="${_csrf.headerName}">
+
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
 
@@ -23,6 +30,12 @@
 <script type="text/javascript">
 	
 	 $(document).ready(function(){
+		 /*js에서 csrf토큰, 헤더 등록  */
+			var token = $("meta[name='_csrf']").attr("content");
+			var header = $("meta[name='_csrf_header']").attr("content");
+			$(document).ajaxSend(function(e, xhr, options) {
+			    xhr.setRequestHeader(header, token);
+			});
 
 			$('#reply').submit(function(event) {
 				event.preventDefault();
@@ -55,7 +68,7 @@
 						console.log(result);
 						if(result == "SUCCESS"){
 							console.log("success");
-							$(location).attr('href',"${pageContext.request.contextPath}/restful/list");
+							$(location).attr('href',"${pageContext.request.contextPath}/admin/list");
 							
 						}
 					},
@@ -92,7 +105,7 @@
 		      </tr>
 		    </thead>
 		    
-		    <form action = "${pageContext.request.contextPath}/restful/reply/${reply_view.bId}" id="reply" method="post">
+		    <form action = "${pageContext.request.contextPath}/admin/reply/${reply_view.bId}" id="reply" method="post">
          <input type="hidden" id="bId" value="${reply_view.bId}">
          <input type="hidden" id="bGroup" value="${reply_view.bGroup}">
          <input type="hidden" id="bStep" value="${reply_view.bStep}">
@@ -125,7 +138,7 @@
 		            		<button type="reset" class="btn btn-dark">리셋</button>
 		            		
 		            		<button type="submit" class="btn btn-dark">
-		            			<a id="a" href="${pageContext.request.contextPath}/restful/list">목록보기</a>
+		            			<a id="a" href="${pageContext.request.contextPath}/admin/list">목록보기</a>
 		            		</button>		            				            		
 		            	</div> 		            	  
 		            </td>

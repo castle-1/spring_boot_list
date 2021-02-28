@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
- 홈
+ 	<input type="button" value="홈">
 
 </body>
 </html>
